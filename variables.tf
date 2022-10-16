@@ -34,5 +34,5 @@ variable "netbit_masks" {
 variable "start_network" {
   type = number
   description = "Num of first network"
-  default = 1
+  default = 0
 }
