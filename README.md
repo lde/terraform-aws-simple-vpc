@@ -38,6 +38,8 @@ No modules.
 
 ## Inputs
 
+## Inputs
+
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_cidr_block"></a> [cidr\_block](#input\_cidr\_block) | cidr block of subnet | `string` | `"192.168.1.0/24"` | no |
@@ -47,6 +49,14 @@ No modules.
 | <a name="input_start_network"></a> [start\_network](#input\_start\_network) | Num of first network | `number` | `0` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | A map of tags to add to resources | `map(string)` | <pre>{<br/>  "Name": "Terraform VPC_elts"<br/>}</pre> | no |
 | <a name="input_vpc_tags"></a> [vpc\_tags](#input\_vpc\_tags) | A map of tags to add to vpc only | `map(string)` | <pre>{<br/>  "Name": "Terraform VPC"<br/>}</pre> | no |
+| <a name="input_private_subnets_tags"></a> [private\_subnets\_tags](#input\_private\_subnets\_tags) | A map of tags to add to private subnets | `map(string)` | `{}` | no |
+| <a name="input_public_subnets_tags"></a> [public\_subnets\_tags](#input\_public\_subnets\_tags) | A map of tags to add to public subnets | `map(string)` | `{}` | no |
+| <a name="input_route_table_tags"></a> [route\_table\_tags](#input\_route\_table\_tags) | A map of tags to add to route tables | `map(string)` | `{}` | no |
+| <a name="input_nat_ip_tags"></a> [nat\_ip\_tags](#input\_nat\_ip\_tags) | A map of tags to add to nat eip | `map(string)` | `{}` | no |
+| <a name="input_nat_gateway_tags"></a> [nat\_gateway\_tags](#input\_nat\_gateway\_tags) | A map of tags to add to nat gateways | `map(string)` | `{}` | no |
+| <a name="input_igw_tags"></a> [igw\_tags](#input\_igw\_tags) | Additional tags for the internet gateway | `map(string)` | `{}` | no |
+| <a name="input_private_route_table_tags"></a> [private\_route\_table\_tags](#input\_private\_route\_table\_tags) | Additional tags for the private route tables | `map(string)` | `{}` | no |
+
 
 ## Outputs
 

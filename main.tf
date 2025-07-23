@@ -8,10 +8,10 @@ terraform {
 }
 
 locals {
-  m_factor    = var.public_ip_on_launch ?1 : 2
-  netbits     = ceil(log(length(data.aws_availability_zones.available.names)*local.m_factor, 2))
-  net_offset  = var.public_ip_on_launch ?0 : length(data.aws_availability_zones.available.names)
-  full_offset = local.net_offset+var.start_network
+  m_factor    = var.public_ip_on_launch ? 1 : 2
+  netbits     = ceil(log(length(data.aws_availability_zones.available.names) * local.m_factor, 2))
+  net_offset  = var.public_ip_on_launch ? 0 : length(data.aws_availability_zones.available.names)
+  full_offset = local.net_offset + var.start_network
 }
 
 resource "aws_vpc" "this" {
@@ -22,22 +22,32 @@ resource "aws_vpc" "this" {
 
 resource "aws_subnet" "this" {
   for_each                = toset(data.aws_availability_zones.available.names)
-  cidr_block              = cidrsubnet(var.cidr_block, local.netbits, index(data.aws_availability_zones.available.names, each.value)+local.full_offset)
+  cidr_block              = cidrsubnet(var.cidr_block, local.netbits, index(data.aws_availability_zones.available.names, each.value) + local.full_offset)
   vpc_id                  = aws_vpc.this.id
   availability_zone       = each.value
   map_public_ip_on_launch = var.public_ip_on_launch
-  tags                    = var.tags
+
+  tags = merge(
+    var.tags,
+    var.private_subnets_tags
+  )
 }
 
 
 resource "aws_internet_gateway" "this" {
   vpc_id = aws_vpc.this.id
-  tags   = var.tags
+  tags = merge(
+    var.tags,
+    var.igw_tags,
+  )
 }
 
 resource "aws_route_table" "this" {
   vpc_id = aws_vpc.this.id
-  tags   = var.tags
+    tags = merge(
+    var.tags,
+    var.route_table_tags,
+  )  
 }
 
 resource "aws_route" "default_route" {
