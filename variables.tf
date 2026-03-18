@@ -42,3 +42,9 @@ variable "resilient_nat_gw" {
   description = "Use one net GW per AZ"
   default     = false
 }
+
+variable "az_blacklist" {
+  type = list(string)
+  description = "az to not use"
+  default = []
+}
